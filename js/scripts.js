@@ -1,3 +1,6 @@
+
+const galleryDiv = document.getElementById('gallery');
+
 /*
 
 fetch("https://randomuser.me/api/?format=json")
@@ -30,7 +33,20 @@ fetch("https://randomuser.me/api/?format=json")
 }
 
 function generateUsers(data) {
-	data.map(person => console.log(person))
+	data.map(person => {
+		const userCard = document.createElement('div');
+		galleryDiv.appendChild(userCard);
+		userCard.className = "card";
+		userCard.innerHTML = `<div class="card-img-container">
+                        <img class="card-img" src=${person.picture.large} alt="profile picture">
+                    </div>
+                    <div class="card-info-container">
+                        <h3 id="name" class="card-name cap">first last</h3>
+                        <p class="card-text">email</p>
+                        <p class="card-text cap">city, state</p>
+												</div>`;
+
+	});
 	}
 
 
