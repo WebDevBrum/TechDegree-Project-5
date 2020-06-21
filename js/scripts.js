@@ -29,12 +29,12 @@ fetch("https://randomuser.me/api/?format=json")
 	
 }
 
-function generateUser(data) {
-		console.log(data)
+function generateUsers(data) {
+	data.map(person => console.log(person))
 	}
 
 
-fetchData("https://randomuser.me/api/?format=json")
-  .then(data => generateUser(data.results[0]))
+fetchData("https://randomuser.me/api/?results=12")
+  .then(data => generateUsers(data.results))
 	
 	
