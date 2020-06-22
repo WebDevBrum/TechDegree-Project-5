@@ -1,8 +1,9 @@
 const userData = "https://randomuser.me/api/?results=12";
 const galleryDiv = document.getElementById('gallery');
 const pageBody = document.querySelector('body');
-const searchBox = document.querySelector(".search-container");
-/*
+const searchBox = document.querySelector('.search-container');
+console.log(searchBox);
+/* 
 
 fetch("https://randomuser.me/api/?format=json")
     .then(response => response.json())
@@ -34,7 +35,7 @@ fetch("https://randomuser.me/api/?format=json")
 }
 
 function generateUsers(data) {
-	data.map(( person, index) => {
+	 data.map(( person, index) => {
 		
 		const userCard = document.createElement('div');
 		galleryDiv.appendChild(userCard);
@@ -56,6 +57,7 @@ function generateUsers(data) {
 		
 		
 		});
+	
 	});
 	return data;
 	}
@@ -147,16 +149,82 @@ function generateUsers(data) {
 		}
 		
 		//make this call itself?
-		function search() {
+		function search(data) {
 			
 			
+			
+			const searchBar= document.createElement('form');
+			console.log(searchBar);
+			//need to add action and method to form
+			searchBar.action = '#';
+			searchBar.method = 'get';
+			
+			searchBar.innerHTML = ` 
+                            <input type="search" id="search-input" class="search-input" placeholder="Search...">
+                            <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+														
+													`;
+			//console.log(searchBar.value);
+			searchBox.appendChild(searchBar);
+			
+			
+			let cards = document.querySelectorAll(".card");
+			
+			let searchField  = document.getElementById('search-input');
+			
+			let button = document.getElementById('search-submit');
+			
+			
+			
+			function searchEmployees(searchInput, names){
+			
+			let searchContent = searchInput.value;
+			let input = searchContent.toString().toLowerCase();
+			
+			for(let i=0; i<names.length; i++){
+				let searchName = names[i].querySelector('h3');
+				
+				let stringName = searchName.textContent.toString().toLowerCase();
+				
+				let match = stringName.indexOf(input);
+				
+				if (match != (-1)) { 
+               names[i].style.display = '';
+               //searchList.push(names[i]);
+            } else {
+               names[i].style.display = 'none';
+            }
+
+         /*   if (searchList.length === 0) {
+               noMatch.style.display = '';
+            } else if (searchList.length > 0) {
+               noMatch.style.display = 'none';
+						 } */
+					 }
+					 
+					 
+					 
+			}
+			
+			//event listener for submit button 
+   button.addEventListener('click', (event) => { 
+      event.preventDefault();
+      searchEmployees(searchField, cards);
+   });
+      //reactive event listener for searchbar entry
+ searchField.addEventListener('keyup', () => {
+      searchEmployees(searchField, cards);
+		});
 			
 		}
+		
+		
 		
 		
 
 fetchData(userData)
   .then(data => generateUsers(data.results))
+	.then(data => search(data))
 	//.then(data => console.log(data))
 	//.then(data => userModal(data.results))
 	
