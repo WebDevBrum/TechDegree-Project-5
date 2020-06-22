@@ -1,5 +1,6 @@
-
+const userData = "https://randomuser.me/api/?results=12";
 const galleryDiv = document.getElementById('gallery');
+const pageBody = document.querySelector('body');
 
 /*
 
@@ -33,7 +34,8 @@ fetch("https://randomuser.me/api/?format=json")
 }
 
 function generateUsers(data) {
-	data.map(person => {
+	data.map(( person, index) => {
+		
 		const userCard = document.createElement('div');
 		galleryDiv.appendChild(userCard);
 		userCard.className = "card";
@@ -41,13 +43,16 @@ function generateUsers(data) {
                         <img class="card-img" src=${person.picture.large} alt="profile picture">
                     </div>
                     <div class="card-info-container">
-                        <h3 id="name" class="card-name cap">first last</h3>
+                        <h3 id="name" class="card-name cap">${person.name.first} ${person.name.last}</h3>
                         <p class="card-text">email</p>
                         <p class="card-text cap">city, state</p>
 												</div>`;
     userCard.addEventListener('click', (event) => {
 			
 			userModal(person);
+			prevNextUser(data[index - 1], data[index +1]);
+			
+			
 		
 		
 		});
@@ -58,19 +63,56 @@ function generateUsers(data) {
 	
 	function userModal(data) {
 		console.log(data);
+		const modalWindow = document.createElement('div');
+		pageBody.appendChild(modalWindow);
+		modalWindow.className = "modal-container";
+		modalWindow.innerHTML = `<div class="modal">
+                    <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+                    <div class="modal-info-container">
+                        <img class="modal-img" src=${data.picture.large} alt="profile picture">
+                        <h3 id="name" class="modal-name cap">${data.name.first} ${data.name.last}</h3>
+                        <p class="modal-text">email</p>
+                        <p class="modal-text cap">city</p>
+                        <hr>
+                        <p class="modal-text">(555) 555-5555</p>
+                        <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
+                        <p class="modal-text">Birthday: 10/21/2015</p>
+												</div>`;
 		
-		/*
-		const cards = galleryDiv.querySelectorAll(".card");
-		//add event listener to all cards ? cards.length etc?
-		cards.addEventListener('click', (event) => {
+		const closeButton = document.getElementById("modal-close-btn");
+		
+		closeButton.addEventListener('click', (event) => {
+			  modalWindow.remove();
 			
-			console.log(event.target);*/
+		});
 		
 		
-	//	});
+			
+		}
+		
+		function prevNextUser(prev, next){
+			console.log(prev);
+			console.log(next);
+			
+			const buttonContainer = document.createElement('div');
+			buttonContainer.className = "modal-btn-container";
+			const modalWindow = pageBody.querySelector(".modal-container");
+			modalWindow.appendChild(buttonContainer);
+			
+			buttonContainer.innerHTML =
+			
+			
+			
+			`
+       <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+                    <button type="button" id="modal-next" class="modal-next btn">Next</button>`;
+										
+			
+			
+			
 }
 
-fetchData("https://randomuser.me/api/?results=12")
+fetchData(userData)
   .then(data => generateUsers(data.results))
 	//.then(data => console.log(data))
 	//.then(data => userModal(data.results))
