@@ -45,12 +45,33 @@ function generateUsers(data) {
                         <p class="card-text">email</p>
                         <p class="card-text cap">city, state</p>
 												</div>`;
-
+    userCard.addEventListener('click', (event) => {
+			
+			userModal(person);
+		
+		
+		});
 	});
+	return data;
 	}
-
+	
+	
+	function userModal(data) {
+		console.log(data);
+		
+		/*
+		const cards = galleryDiv.querySelectorAll(".card");
+		//add event listener to all cards ? cards.length etc?
+		cards.addEventListener('click', (event) => {
+			
+			console.log(event.target);*/
+		
+		
+	//	});
+}
 
 fetchData("https://randomuser.me/api/?results=12")
   .then(data => generateUsers(data.results))
-	
+	//.then(data => console.log(data))
+	//.then(data => userModal(data.results))
 	
