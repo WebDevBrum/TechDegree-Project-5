@@ -1,3 +1,5 @@
+//Global variables
+
 const userData = "https://randomuser.me/api/?results=12&nat=gb,us";
 const galleryDiv = document.getElementById('gallery');
 const pageBody = document.querySelector('body');
@@ -5,6 +7,8 @@ const searchBox = document.querySelector('.search-container');
 
 
 		
+
+//functions for grabbing data and error management
 		
 		
 		function fetchData(url) {
@@ -27,11 +31,16 @@ const searchBox = document.querySelector('.search-container');
 	
 }
 
+
+//grabs data and passes to generate users 
+//calls search bar function once user promise resolved (html user cards required for search availability
 fetchData(userData)
   .then(data => generateUsers(data.results))
-	.finally(search);
+	.then(search);
 
 
+	
+// populates the page with a random selection of users
 function generateUsers(data) {
 	 data.map(( person, index) => {
 		
@@ -43,8 +52,8 @@ function generateUsers(data) {
                     </div>
                     <div class="card-info-container">
                         <h3 id="name" class="card-name cap">${person.name.first} ${person.name.last}</h3>
-                        <p class="card-text">email</p>
-                        <p class="card-text cap">city, state</p>
+                        <p class="card-text">${person.email}</p>
+                        <p class="card-text cap">${person.location.city}, ${person.location.state}</p>
 												</div>`;
     userCard.addEventListener('click', (event) => {
 			
@@ -62,11 +71,13 @@ function generateUsers(data) {
 	
 	}
 	
-	
+	// creates a modal window based on selection
+	//along with previous and next buttons
 	function userModal(data, personIndex) {
 		
 		
 		const person = data[personIndex];
+		
 		const modalWindow = document.createElement('div');
 		pageBody.appendChild(modalWindow);
 		modalWindow.className = "modal-container";
@@ -75,12 +86,12 @@ function generateUsers(data) {
                     <div class="modal-info-container">
                         <img class="modal-img" src=${person.picture.large} alt="profile picture">
                         <h3 id="name" class="modal-name cap">${person.name.first} ${person.name.last}</h3>
-                        <p class="modal-text">email</p>
-                        <p class="modal-text cap">city</p>
+                        <p class="modal-text">${person.email}</p>
+                        <p class="modal-text cap">${person.location.city}</p>
                         <hr>
-                        <p class="modal-text">(555) 555-5555</p>
-                        <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
-                        <p class="modal-text">Birthday: 10/21/2015</p>
+                        <p class="modal-text">${person.cell}</p>
+                        <p class="modal-text">${person.location.street.number} ${person.location.street.name}, ${person.location.city}, ${person.location.postcode}</p>
+                        <p class="modal-text">Age: ${person.dob.age}</p>
 												</div>`;
 		
 		const closeButton = document.getElementById("modal-close-btn");
@@ -90,11 +101,10 @@ function generateUsers(data) {
 			
 		});
 		
-		//button container
+		//Prev and next buttons plus functionality
 		
 		const buttonContainer = document.createElement('div');
 			buttonContainer.className = "modal-btn-container";
-			//const modalWindow = pageBody.querySelector(".modal-container");
 			
 			
 			modalWindow.appendChild(buttonContainer);
@@ -107,9 +117,7 @@ function generateUsers(data) {
        <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
                     <button type="button" id="modal-next" class="modal-next btn">Next</button>`;
 										
-			//event listen each button
-			//remove modal 
-			//call usermodal and prev next? might need to add above to user modal function
+										
 			const nextButton = document.getElementById("modal-next");
 			const prevButton = document.getElementById("modal-prev");
 			if(data[personIndex +1] != null){
@@ -141,12 +149,12 @@ function generateUsers(data) {
 				userModal(data, personIndex-1);
 				
 			});
-		//prevNextUser(prevPerson, nextPerson);
+	
 		
 			
 		}
 		
-		//make this call itself?
+		//creates functional searchBar 
 		function search() {
 			
 			
@@ -173,7 +181,7 @@ function generateUsers(data) {
 			let button = document.getElementById('search-submit');
 			
 			
-			
+			// creates search bar functionality
 			function searchEmployees(searchInput, names){
 			
 			let searchContent = searchInput.value;
