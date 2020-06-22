@@ -1,7 +1,7 @@
 const userData = "https://randomuser.me/api/?results=12";
 const galleryDiv = document.getElementById('gallery');
 const pageBody = document.querySelector('body');
-
+const searchBox = document.querySelector(".search-container");
 /*
 
 fetch("https://randomuser.me/api/?format=json")
@@ -49,8 +49,8 @@ function generateUsers(data) {
 												</div>`;
     userCard.addEventListener('click', (event) => {
 			
-			userModal(person);
-			prevNextUser(data[index - 1], data[index +1]);
+			userModal(data, index);
+			
 			
 			
 		
@@ -61,16 +61,20 @@ function generateUsers(data) {
 	}
 	
 	
-	function userModal(data) {
-		console.log(data);
+	function userModal(data, personIndex) {
+		
+		
+		const person = data[personIndex];
+	//	const nextPerson = data[personIndex +1];
+	//	const prevPerson = data[personIndex-1];
 		const modalWindow = document.createElement('div');
 		pageBody.appendChild(modalWindow);
 		modalWindow.className = "modal-container";
 		modalWindow.innerHTML = `<div class="modal">
                     <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
                     <div class="modal-info-container">
-                        <img class="modal-img" src=${data.picture.large} alt="profile picture">
-                        <h3 id="name" class="modal-name cap">${data.name.first} ${data.name.last}</h3>
+                        <img class="modal-img" src=${person.picture.large} alt="profile picture">
+                        <h3 id="name" class="modal-name cap">${person.name.first} ${person.name.last}</h3>
                         <p class="modal-text">email</p>
                         <p class="modal-text cap">city</p>
                         <hr>
@@ -86,17 +90,13 @@ function generateUsers(data) {
 			
 		});
 		
+		//button container
 		
-			
-		}
-		
-		function prevNextUser(prev, next){
-			console.log(prev);
-			console.log(next);
-			
-			const buttonContainer = document.createElement('div');
+		const buttonContainer = document.createElement('div');
 			buttonContainer.className = "modal-btn-container";
-			const modalWindow = pageBody.querySelector(".modal-container");
+			//const modalWindow = pageBody.querySelector(".modal-container");
+			
+			
 			modalWindow.appendChild(buttonContainer);
 			
 			buttonContainer.innerHTML =
@@ -107,10 +107,53 @@ function generateUsers(data) {
        <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
                     <button type="button" id="modal-next" class="modal-next btn">Next</button>`;
 										
+			//event listen each button
+			//remove modal 
+			//call usermodal and prev next? might need to add above to user modal function
+			const nextButton = document.getElementById("modal-next");
+			const prevButton = document.getElementById("modal-prev");
+			if(data[personIndex +1] != null){
+				nextButton.style.display = " ";
+			} else {
+					nextButton.style.display = "none";
+				}
+			
+				if(data[personIndex -1] != null){
+				prevButton.style.display = " ";
+			} else {
+					prevButton.style.display = "none";
+				}
+				
+			nextButton.addEventListener('click', (event) => {
+				
+				
+				
+				
+				
+				modalWindow.remove();
+				userModal(data, personIndex+1);
+			
+			});
+			
+		prevButton.addEventListener('click', (event) => {
+			
+				modalWindow.remove();
+				userModal(data, personIndex-1);
+				
+			});
+		//prevNextUser(prevPerson, nextPerson);
+		
+			
+		}
+		
+		//make this call itself?
+		function search() {
 			
 			
 			
-}
+		}
+		
+		
 
 fetchData(userData)
   .then(data => generateUsers(data.results))
