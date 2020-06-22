@@ -1,29 +1,22 @@
-const userData = "https://randomuser.me/api/?results=12";
+const userData = "https://randomuser.me/api/?results=12&nat=gb,us";
 const galleryDiv = document.getElementById('gallery');
 const pageBody = document.querySelector('body');
 const searchBox = document.querySelector('.search-container');
-console.log(searchBox);
-/* 
 
-fetch("https://randomuser.me/api/?format=json")
-    .then(response => response.json())
-		.then(data =>  data.results[0].name)
-		.then(data => console.log(data))
-		*/
+
 		
 		
 		
 		function fetchData(url) {
     return fetch(url)
-		    .then(checkStatus)//a failed http request would still resolve with ok = false so still needs to be caught (as opposed to a mistyped url etc)
+		    .then(checkStatus)
         .then(res => res.json())
 				.catch(error => console.log('Looks like there was a problem', error))
 				}
 				
 				function checkStatus(response ) {
 					
-	if(response.ok){ //have a look what this means 
-		//console.log(response.ok)
+	if(response.ok){ 
 		return Promise.resolve(response);
 		
 	} else {
@@ -33,6 +26,11 @@ fetch("https://randomuser.me/api/?format=json")
 	
 	
 }
+
+fetchData(userData)
+  .then(data => generateUsers(data.results))
+	.finally(search);
+
 
 function generateUsers(data) {
 	 data.map(( person, index) => {
@@ -54,12 +52,14 @@ function generateUsers(data) {
 			
 			
 			
+	
 		
 		
 		});
 	
 	});
-	return data;
+	
+	
 	}
 	
 	
@@ -67,8 +67,6 @@ function generateUsers(data) {
 		
 		
 		const person = data[personIndex];
-	//	const nextPerson = data[personIndex +1];
-	//	const prevPerson = data[personIndex-1];
 		const modalWindow = document.createElement('div');
 		pageBody.appendChild(modalWindow);
 		modalWindow.className = "modal-container";
@@ -149,12 +147,12 @@ function generateUsers(data) {
 		}
 		
 		//make this call itself?
-		function search(data) {
+		function search() {
 			
 			
 			
 			const searchBar= document.createElement('form');
-			console.log(searchBar);
+			
 			//need to add action and method to form
 			searchBar.action = '#';
 			searchBar.method = 'get';
@@ -164,7 +162,7 @@ function generateUsers(data) {
                             <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
 														
 													`;
-			//console.log(searchBar.value);
+			
 			searchBox.appendChild(searchBar);
 			
 			
@@ -218,13 +216,11 @@ function generateUsers(data) {
 			
 		}
 		
+	
 		
 		
+	
+	
+	
 		
-
-fetchData(userData)
-  .then(data => generateUsers(data.results))
-	.then(data => search(data))
-	//.then(data => console.log(data))
-	//.then(data => userModal(data.results))
 	
