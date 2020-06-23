@@ -37,8 +37,7 @@ const searchBox = document.querySelector('.search-container');
 fetchData(userData)
   .then(data => generateUsers(data.results))
 	.then(search);
-
-
+   
 	
 // populates the page with a random selection of users
 function generateUsers(data) {
@@ -60,7 +59,7 @@ function generateUsers(data) {
 			userModal(data, index);
 			
 			
-			
+			///JOIN??
 	
 		
 		
@@ -68,7 +67,7 @@ function generateUsers(data) {
 	
 	});
 	
-	
+	return "cheese";
 	}
 	
 	// creates a modal window based on selection
@@ -77,7 +76,9 @@ function generateUsers(data) {
 		
 		
 		const person = data[personIndex];
-		
+		const date = person.dob.date;
+		let dob = date.split("T")[0];
+		dob = dob.split("-").reverse().join("-");
 		const modalWindow = document.createElement('div');
 		pageBody.appendChild(modalWindow);
 		modalWindow.className = "modal-container";
@@ -91,7 +92,7 @@ function generateUsers(data) {
                         <hr>
                         <p class="modal-text">${person.cell}</p>
                         <p class="modal-text">${person.location.street.number} ${person.location.street.name}, ${person.location.city}, ${person.location.postcode}</p>
-                        <p class="modal-text">Age: ${person.dob.age}</p>
+                        <p class="modal-text">Birthday: ${dob}</p>
 												</div>`;
 		
 		const closeButton = document.getElementById("modal-close-btn");
