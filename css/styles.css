@@ -3,6 +3,7 @@
 ======================================== */
 
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 * {
 	box-sizing: border-box;
@@ -35,12 +36,22 @@ header {
 .header-inner-container {
     max-width: 1180px;
     margin: auto;
+		
 }
 
 header h1 {
     font-size: 1.25em;
-    color: rgba(50, 50, 50, 0.9);
+    color: white;
     margin-top: 35px;
+		text-shadow: 2px 2px 4px #000000;
+}
+
+.company {
+	
+	font-family: 'Press Start 2P', cursive;
+	color: white ;
+	font-size: 2em;
+	text-shadow: 2px 2px 4px #000000;
 }
 
 .search-input {
