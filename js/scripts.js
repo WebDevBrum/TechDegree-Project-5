@@ -135,54 +135,31 @@ function search() {
 	const searchField  = document.getElementById('search-input');
 	const button = document.getElementById('search-submit');
 	
-// creates search bar functionality
-	function searchEmployees(searchInput, names){
+/*creates search bar functionality(click and keyup)*/
+  function searchEmployees(searchInput, names){
+	  let searchContent = searchInput.value;
+		let input = searchContent.toString().toLowerCase();
 			
-			let searchContent = searchInput.value;
-			let input = searchContent.toString().toLowerCase();
+		for(let i=0; i<names.length; i++){
+		  let searchName = names[i].querySelector('h3');
+			let stringName = searchName.textContent.toString().toLowerCase();
+			let match = stringName.indexOf(input);
+				
+			if (match != (-1)) { 
+        names[i].style.display = '';
+      } else {
+        names[i].style.display = 'none';
+      }
+    }
+  }
 			
-			for(let i=0; i<names.length; i++){
-				let searchName = names[i].querySelector('h3');
-				
-				let stringName = searchName.textContent.toString().toLowerCase();
-				
-				let match = stringName.indexOf(input);
-				
-				if (match != (-1)) { 
-               names[i].style.display = '';
-               //searchList.push(names[i]);
-            } else {
-               names[i].style.display = 'none';
-            }
-
-         /*   if (searchList.length === 0) {
-               noMatch.style.display = '';
-            } else if (searchList.length > 0) {
-               noMatch.style.display = 'none';
-						 } */
-					 }
-					 
-					 
-					 
-			}
-			
-			//event listener for submit button 
-   button.addEventListener('click', (event) => { 
+  //event listener for submit button 
+    button.addEventListener('click', (event) => { 
       event.preventDefault();
       searchEmployees(searchField, cards);
-   });
-      //reactive event listener for searchbar entry
- searchField.addEventListener('keyup', () => {
+    });
+  //reactive event listener for searchbar entry
+    searchField.addEventListener('keyup', () => {
       searchEmployees(searchField, cards);
 		});
-			
-		}
-		
-	
-		
-		
-	
-	
-	
-		
-	
+}
