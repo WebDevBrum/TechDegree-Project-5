@@ -5,13 +5,8 @@ const galleryDiv = document.getElementById('gallery');
 const pageBody = document.querySelector('body');
 const searchBox = document.querySelector('.search-container');
 
-
-		
-
-//functions for grabbing data and error management
-		
-		
-		function fetchData(url) {
+/*functions for grabbing data and error management*/
+function fetchData(url) {
     return fetch(url)
 		    .then(checkStatus)
         .then(res => res.json())
@@ -32,14 +27,14 @@ const searchBox = document.querySelector('.search-container');
 }
 
 
-//grabs data and passes to generate users 
-//calls search bar function once user promise resolved (html user cards required for search availability
+/*grabs data and passes to generate users 
+//calls search bar function once user promise resolved (html user cards required for search availability*/
 fetchData(userData)
   .then(data => generateUsers(data.results))
 	.then(search);
    
 	
-// populates the page with a random selection of users
+/* populates the page with a random selection of employees*/
 function generateUsers(data) {
 	 data.map(( person, index) => {
 		
@@ -67,7 +62,7 @@ function generateUsers(data) {
 	
 	});
 	
-	return "cheese";
+	return data;
 	}
 	
 	// creates a modal window based on selection
