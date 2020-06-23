@@ -69,103 +69,74 @@ function userModal(data, personIndex) {
         <div class="modal-info-container">
           <img class="modal-img" src=${person.picture.large} alt="profile picture">
            <h3 id="name" class="modal-name cap">${person.name.first} ${person.name.last}</h3>
-                        <p class="modal-text">${person.email}</p>
-                        <p class="modal-text cap">${person.location.city}</p>
-                        <hr>
-                        <p class="modal-text">${person.cell}</p>
-                        <p class="modal-text">${person.location.street.number} ${person.location.street.name}, ${person.location.city}, ${person.location.postcode}</p>
-                        <p class="modal-text">Birthday: ${dob}</p>
-												</div>`;
+           <p class="modal-text">${person.email}</p>
+           <p class="modal-text cap">${person.location.city}</p>
+           <hr>
+           <p class="modal-text">${person.cell}</p>
+           <p class="modal-text">${person.location.street.number} ${person.location.street.name}, ${person.location.city}, ${person.location.postcode}</p>
+           <p class="modal-text">Birthday: ${dob}</p>
+				 </div>`;
+
+//button to exit window
+  const closeButton = document.getElementById("modal-close-btn");
 		
-		const closeButton = document.getElementById("modal-close-btn");
+	closeButton.addEventListener('click', (event) => {
+	  modalWindow.remove();
+	});
 		
-		closeButton.addEventListener('click', (event) => {
-			  modalWindow.remove();
-			
-		});
+//Prev and next employee buttons plus functionality
 		
-		//Prev and next buttons plus functionality
-		
-		const buttonContainer = document.createElement('div');
-			buttonContainer.className = "modal-btn-container";
-			
-			
-			modalWindow.appendChild(buttonContainer);
-			
-			buttonContainer.innerHTML =
-			
-			
-			
-			`
-       <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
-                    <button type="button" id="modal-next" class="modal-next btn">Next</button>`;
-										
-										
-			const nextButton = document.getElementById("modal-next");
-			const prevButton = document.getElementById("modal-prev");
-			if(data[personIndex +1] != null){
-				nextButton.style.display = " ";
-			} else {
-					nextButton.style.display = "none";
-				}
-			
-				if(data[personIndex -1] != null){
-				prevButton.style.display = " ";
-			} else {
-					prevButton.style.display = "none";
-				}
-				
-			nextButton.addEventListener('click', (event) => {
-				
-				
-				
-				
-				
-				modalWindow.remove();
-				userModal(data, personIndex+1);
-			
-			});
-			
-		prevButton.addEventListener('click', (event) => {
-			
-				modalWindow.remove();
-				userModal(data, personIndex-1);
-				
-			});
+  const buttonContainer = document.createElement('div');
+	buttonContainer.className = "modal-btn-container";
+	//append buttons to window
+	modalWindow.appendChild(buttonContainer);
+	buttonContainer.innerHTML =
+	  `<button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+     <button type="button" id="modal-next" class="modal-next btn">Next</button>`;
+	//button functionality
+	const nextButton = document.getElementById("modal-next");
+	const prevButton = document.getElementById("modal-prev");
 	
+	if(data[personIndex +1] != null){
+	  nextButton.style.display = " ";
+	} else {
+		nextButton.style.display = "none";
+	}
+			
+	if(data[personIndex -1] != null){
+	  prevButton.style.display = " ";
+	} else {
+		prevButton.style.display = "none";
+	}
+				
+	nextButton.addEventListener('click', (event) => {
+	  modalWindow.remove();
+		userModal(data, personIndex+1);
+	});
+			
+	prevButton.addEventListener('click', (event) => {
+	  modalWindow.remove();
+		userModal(data, personIndex-1);
+	});
+}
 		
-			
-		}
-		
-		//creates functional searchBar 
-		function search() {
-			
-			
-			
-			const searchBar= document.createElement('form');
-			
-			//need to add action and method to form
-			searchBar.action = '#';
-			searchBar.method = 'get';
-			
-			searchBar.innerHTML = ` 
-                            <input type="search" id="search-input" class="search-input" placeholder="Search...">
-                            <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
-														
-													`;
-			
-			searchBox.appendChild(searchBar);
-			
-			
-			let cards = document.querySelectorAll(".card");
-			
-			let searchField  = document.getElementById('search-input');
-			
-			let button = document.getElementById('search-submit');
-			
-			
-			// creates search bar functionality
-			function searchEmployees(searchInput, names){
+/*creates functional searchBar*/
+function search() {
+  const searchBar= document.createElement('form');
+	searchBar.action = '#';
+	searchBar.method = 'get';
+	searchBar.innerHTML = 
+	`<input type="search" id="search-input" class="search-input" placeholder="Search...">
+   <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">`;
+	
+ //append search to page and reference items
+	searchBox.appendChild(searchBar);
+	const cards = document.querySelectorAll(".card");
+	const searchField  = document.getElementById('search-input');
+	const button = document.getElementById('search-submit');
+	
+// creates search bar functionality
+	function searchEmployees(searchInput, names){
 			
 			let searchContent = searchInput.value;
 			let input = searchContent.toString().toLowerCase();
