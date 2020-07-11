@@ -1,8 +1,11 @@
 ---
 permalink: /index.html
 ---
+ 
+ CONTENTS OF THIS FILE
+---------------------
 
-
+* Introduction
 
 # TechDegree-Project-5 Public API Request
 
@@ -18,3 +21,13 @@ permalink: /index.html
  Addition of Background image with scroll over
  
  Change to header font , shadow and color.
+ 
+ 
+ 
+ * Requirements
+ * Recommended modules
+ * Installation
+ * Configuration
+ * Troubleshooting
+ * FAQ
+ * Maintainers
