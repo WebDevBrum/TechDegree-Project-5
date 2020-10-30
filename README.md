@@ -2,32 +2,26 @@
 permalink: /index.html
 ---
  
- CONTENTS OF THIS FILE
----------------------
+<img src='readme-images/treehouse.png' width='200' height='50' alt='treehouse logo'/>
 
-* Introduction
+# TechDegree-Project-5
 
-# TechDegree-Project-5 Public API Request
+## Web Cooks - Public Api Request
 
- App for a fictional company called Web Cooks, a distributed company with remote employees working all over the world. They need a smart way for employees to share contact information with each other.
+<img src='readme-images/front.jpeg' width='350' height='200' alt='project preview'/>
+
+## Live Demo
+
+https://webdevbrum.github.io/TechDegree-Project-5/
+
+## Getting Started
+
+*No pre requisite installation required, built using Vanilla JavaScript*
+
+App for a fictional company called Web Cooks, a distributed company with remote employees working all over the world. They need a smart way for employees to share contact information with each other.
+ 
+Use of the Random User Generator API *(https://randomuser.me/)* to grab information for 12 random “employees,” and use that data to build a prototype for an Awesome Startup employee directory.
+ 
+Request of a JSON object from the API and parse the data so that 12 employees are listed in a grid with their thumbnail image, full name, email, and location. Clicking the employee’s image or name will open a modal window with more detailed information, such as the employee’s birthday and address.
  
  
- Use of the Random User Generator API (https://randomuser.me/) to grab information for 12 random “employees,” and use that data to build a prototype for an Awesome Startup employee directory.
- 
- Request of a JSON object from the API and parse the data so that 12 employees are listed in a grid with their thumbnail image, full name, email, and location. Clicking the employee’s image or name will open a modal window with more detailed information, such as the employee’s birthday and address.
- 
- The following CSS changes were carried out 
- 
- Addition of Background image with scroll over
- 
- Change to header font , shadow and color.
- 
- 
- 
- * Requirements
- * Recommended modules
- * Installation
- * Configuration
- * Troubleshooting
- * FAQ
- * Maintainers
